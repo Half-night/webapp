@@ -7,4 +7,5 @@ return array(
 		'password' => '',
 		'db_name' => 'webapp',
 	),
+    'theme' => 'default',
 );

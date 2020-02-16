@@ -10,4 +10,5 @@ return array(
 	'Model' => FRAMEWORK_DIR . '/core/Model.php',
 	'View' => FRAMEWORK_DIR . '/core/View.php',
 	'Database' => FRAMEWORK_DIR . '/core/Database.php',
+    'UserModel' => FRAMEWORK_DIR . '/models/UserModel.php',
 );
