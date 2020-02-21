@@ -1,6 +1,7 @@
 <html>
 <head>
-	
+	<meta charset="utf-8">
+    <title>Default template</title>
 </head>
 
 <body>

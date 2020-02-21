@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login form</title>
-</head>
-<body>
 
 <h1>Login form</h1>
 
@@ -15,5 +9,3 @@
     <input type="submit" name="submit" value="Log in">
 </form>
 
-</body>
-</html>

@@ -6,6 +6,8 @@ class HomepageView extends View
 
 	public function render() {
 
-		include APP_DIR . '/templates/default.tmpl.php';
+        $data = $this->data;
+
+		include APP_DIR . '/templates/common.tmpl.php';
 	}
 }

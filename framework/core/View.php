@@ -4,6 +4,7 @@ abstract class View
 {
 
 	protected $data = array();
+    protected $theme = 'default';
 	
 	public function __construct($data = array()) {
 		

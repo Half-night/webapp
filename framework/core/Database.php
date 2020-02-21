@@ -66,7 +66,7 @@ class Database
 			$result = $this->connection->multi_query($query);
 
 			if (!$this->connection->errno) {
-					
+
 				return $result;
 
 			} else {
