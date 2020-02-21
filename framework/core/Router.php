@@ -3,50 +3,50 @@
 class Router
 {
 
-	private $routes = array();
+    private $routes = array();
 
-	public function __construct() {
+    public function __construct() {
 
-	}
+    }
 
-	public function load($file) {
+    public function load($file) {
 
-		if (file_exists($file)) {
+        if (file_exists($file)) {
 
-			$routes = require_once $file;
+            $routes = require_once $file;
 
-			if (is_array($routes)) {
+            if (is_array($routes)) {
 
-				foreach ($routes as $pattern => $route) {
-					$this->routes[$pattern] = $route;
-				}
+                foreach ($routes as $pattern => $route) {
+                    $this->routes[$pattern] = $route;
+                }
 
-				return true;
-			} else {
+                return true;
+            } else {
 
-				return false;
-			}
-		} else {
+                return false;
+            }
+        } else {
 
-			return false;
-		}
-		
-	}
+            return false;
+        }
+        
+    }
 
-	public function add() {
+    public function add() {
 
-	}
+    }
 
-	public function find($path) {
+    public function find($path) {
 
-		foreach ($this->routes as $pattern => $route) {
-			if (preg_match('#^' . $pattern . '$#', $path)) {
+        foreach ($this->routes as $pattern => $route) {
+            if (preg_match('#^' . $pattern . '$#', $path)) {
 
-				$route_obj = new Route($route);
-				return $route_obj;
-			}
-		}
+                $route_obj = new Route($route);
+                return $route_obj;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

@@ -3,12 +3,12 @@
 class ErrorController extends Controller
 {
 
-	private $view = null;
+    private $view = null;
 
-	public function notFoundAction() {
+    public function notFoundAction() {
 
-		$this->view = new ErrorView();
-		$this->view->render();
+        $this->view = new ErrorView();
+        $this->view->render();
 
-	}
+    }
 }

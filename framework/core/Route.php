@@ -3,15 +3,15 @@
 class Route
 {
 
-	public $controller = null;
-	public $method = null;
+    public $controller = null;
+    public $method = null;
 
-	public function __construct($route) {
+    public function __construct($route) {
 
-		//TODO: validate route string
+        //TODO: validate route string
 
-		$route_array = explode('@', $route);
-		$this->controller = $route_array[0];
-		$this->method = $route_array[1];
-	}
+        $route_array = explode('@', $route);
+        $this->controller = $route_array[0];
+        $this->method = $route_array[1];
+    }
 }

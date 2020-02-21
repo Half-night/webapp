@@ -3,10 +3,10 @@
 abstract class Model
 {
 
-	protected $db = null;
+    protected $db = null;
 
-	public function __construct() {
+    public function __construct() {
 
-		$this->db = Database::getInstance();
-	}
+        $this->db = Database::getInstance();
+    }
 }

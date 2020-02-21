@@ -3,8 +3,8 @@
 class ErrorView extends View
 {
 
-	public function render() {
+    public function render() {
 
-		include APP_DIR . '/templates/error404.php';
-	}
+        include APP_DIR . '/templates/error404.php';
+    }
 }

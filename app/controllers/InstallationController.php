@@ -3,11 +3,11 @@
 class InstallationController extends Controller
 {
 
-	private $model = null;
+    private $model = null;
 
-	public function indexAction() {
+    public function indexAction() {
 
-		$this->model = new InstallationModel();
-		$this->model->runDump();
-	}
+        $this->model = new InstallationModel();
+        $this->model->runDump();
+    }
 }

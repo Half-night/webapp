@@ -3,92 +3,92 @@
 class Database
 {
 
-	private static $instance = null;
-	private $connection = null;
-	private $config = null;
+    private static $instance = null;
+    private $connection = null;
+    private $config = null;
 
-	private function __construct() {}
+    private function __construct() {}
 
-	private function __clone() {}
+    private function __clone() {}
 
-	public static function getInstance() {
-		if (self::$instance === null) {
-			self::$instance = new self();
-		}
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
 
-		return self::$instance;
-	}
+        return self::$instance;
+    }
 
-	public function connect() {
-		
-		$this->config = Config::get('mysql');
-		$this->connection = new Mysqli($this->config['host'], $this->config['user'], $this->config['password'], $this->config['db_name']);
-	}
+    public function connect() {
+        
+        $this->config = Config::get('mysql');
+        $this->connection = new Mysqli($this->config['host'], $this->config['user'], $this->config['password'], $this->config['db_name']);
+    }
 
-	public function disconnect() {
+    public function disconnect() {
 
-		$this->connection->close();
-		$this->connection = null;
-	}
+        $this->connection->close();
+        $this->connection = null;
+    }
 
-	public function query($query) {
+    public function query($query) {
 
-		//TODO: rewrite this method
-		if ($this->connection instanceof Mysqli) {
+        //TODO: rewrite this method
+        if ($this->connection instanceof Mysqli) {
 
-			$result = $this->connection->query($query);
+            $result = $this->connection->query($query);
 
-			if (!$this->connection->errno) {
+            if (!$this->connection->errno) {
 
-				if ($result === true) {
+                if ($result === true) {
 
-					return true;
-				} else {
-					
-					return $this->prepare_result($result);
-				}
-			} else {
+                    return true;
+                } else {
+                    
+                    return $this->prepare_result($result);
+                }
+            } else {
 
-				die($this->connection->error);
-			}
+                die($this->connection->error);
+            }
 
-		} else {
+        } else {
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	public function multi_query($query) {
+    public function multi_query($query) {
 
-		//TODO: rewrite this method
-		if ($this->connection instanceof Mysqli) {
+        //TODO: rewrite this method
+        if ($this->connection instanceof Mysqli) {
 
-			$result = $this->connection->multi_query($query);
+            $result = $this->connection->multi_query($query);
 
-			if (!$this->connection->errno) {
+            if (!$this->connection->errno) {
 
-				return $result;
+                return $result;
 
-			} else {
+            } else {
 
-				die($this->connection->error);
-			}
+                die($this->connection->error);
+            }
 
-		} else {
+        } else {
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	private function prepare_result($result) {
+    private function prepare_result($result) {
 
-		$result_array = array();
+        $result_array = array();
 
-		while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
 
-			$result_array[] = $row;
-		}
+            $result_array[] = $row;
+        }
 
-		return $result_array;
-	}
+        return $result_array;
+    }
 }

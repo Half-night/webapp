@@ -9,7 +9,7 @@ require_once APP_DIR . '/init.php';
 require_once FRAMEWORK_DIR . '/core/ClassMap.php';
 
 spl_autoload_register(function($class) {
-	ClassMap::requireClass($class);
+    ClassMap::requireClass($class);
 });
 
 ClassMap::generate(FRAMEWORK_DIR);
