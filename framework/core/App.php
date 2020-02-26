@@ -16,20 +16,27 @@ class App
         
         $request_path = str_replace('?'.$_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']);
         $request_path = trim($request_path, '/');
+
+        // TODO: implement another way to store request_path
         Config::set('request_path', $request_path);
         
-        if (! $route = $this->router->find($request_path)) {
-            $route = new Route('Error@notFound');
-        }
-        
-        $controllerName = $route->controller . 'Controller';
-        $this->controller = new $controllerName();
+        if ($route = $this->router->find($request_path) AND
+            ClassMap::get($route->controller . "Controller") AND
+            method_exists($route->controller . "Controller", $route->method . "Action")) {
 
-        $methodName = $route->method . 'Action';
-        if ( $this->controller->$methodName() === false ) {
+            $controllerName = $route->controller . 'Controller';
+            $methodName = $route->method . 'Action';
+            $this->controller = new $controllerName();
 
-            $this->controller = new ErrorController();
-            $this->controller->notFoundAction();
+            if ( $this->controller->$methodName() === false ) {
+
+                $this->controller = new ErrorController();
+                $this->controller->notFoundAction();
+            }
+
+        } else {
+
+            die("Oops, we have problems :-/");
         }
     }
 }

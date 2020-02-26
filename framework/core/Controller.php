@@ -5,6 +5,7 @@ abstract class Controller
 
     protected $auth = null;
     protected $user_logged = false;
+    protected $user = null;
 
     public function __construct() {
 

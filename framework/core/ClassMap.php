@@ -58,6 +58,17 @@ class ClassMap
         }
     }
 
+    public static function get($class) {
+
+        if (isset(self::$classMap[$class])) {
+
+            return self::$classMap[$class];
+        } else {
+
+            return false;
+        }
+    }
+
     public static function getAll() {
 
         return self::$classMap;

@@ -5,6 +5,9 @@ class AuthorizationModel extends Model
 
     private $users = null;
 
+    private $user = null;
+    private $is_admin = null;
+
     public function __construct() {
 
         parent::__construct();
@@ -53,6 +56,40 @@ class AuthorizationModel extends Model
         } else {
 
             return false;
+        }
+    }
+
+    public function isAdmin() {
+
+        // TODO : We need refactoring to prevent repeated methods calls
+        if ( $this->is_admin === null ) {
+
+            if (! isset($_COOKIE['login']) ) {
+
+                return false;
+            }
+            
+            $user = $this->getUserData($_COOKIE['login']);
+
+            if ( $user['login'] === 'admin' ) {
+
+                $this->is_admin = true;
+                return true;
+
+            } else {
+
+                $this->is_admin = false;
+                return false;
+            }
+        } else {
+
+            if (is_bool($this->is_admin)) {
+
+                return $this->is_admin;
+            } else {
+
+                return false;
+            }
         }
     }
 
