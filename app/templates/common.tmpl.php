@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="/themes/<?= $this->theme; ?>/css/style.css">
   <title><?= $data['title'] ?></title>
   <meta name="description" content="<?= $data['description'] ?>">
   <meta name="keywords" content="<?= $data['keywords'] ?>">
   <meta name="robots" content="<?= $data['robots'] ?>">
+  <link rel="stylesheet" type="text/css" href="/themes/<?= $this->theme; ?>/css/style.css">
 </head>
 <body>
 

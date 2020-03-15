@@ -10,19 +10,20 @@
 </head>
 <body>
 
+<?php
+    include 'top_bar.tmpl.php';
+?>
+
+  <div id="body">
+
 <!-- Head -->
 
-<div>
+<div id="head">
   <img src="/themes/<?= $this->theme; ?>/img/logo.png">
 </div>
 
+
 <!-- /Head -->
-
-<?php
-
-include  __DIR__ . '/../login.tmpl.php';
-
-?>
 
 <?php
 

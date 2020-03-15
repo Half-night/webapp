@@ -3,9 +3,8 @@
 class AuthorizationModel extends Model
 {
 
-    private $users = null;
-
     private $user = null;
+    private $is_logged = null;
     private $is_admin = null;
 
     public function __construct() {
@@ -20,7 +19,8 @@ class AuthorizationModel extends Model
 
             $hash = $this->makeCookieHash($login, $this->makePasswordHash($password));
             $this->authorize($login, $hash);
-
+            $this->is_logged = true;
+            
             return true;
         } else {
 
@@ -41,12 +41,36 @@ class AuthorizationModel extends Model
 
     }
 
+    public function getInfo() {
+
+        if ( !is_null($this->user) ) {
+
+            if ( isset($this->user['login']) AND isset($this->user['email'])) {
+
+                $data['login'] = $this->user['login'];
+                $data['email'] = $this->user['email'];
+
+                return $data;
+            } else {
+
+                return false;
+            }
+        } else {
+
+            return false;
+        }
+    }
+
     public function isLogged() {
 
-        if ( isset($_COOKIE['login']) AND !empty($_COOKIE['login']) AND isset($_COOKIE['hash']) AND !empty($_COOKIE['hash']) ) {
+        if ( !is_null($this->is_logged) AND $this->is_logged === true ) {
+
+            return true;
+        } elseif ( isset($_COOKIE['login']) AND !empty($_COOKIE['login']) AND isset($_COOKIE['hash']) AND !empty($_COOKIE['hash']) ) {
 
             if ($this->validateByHash($_COOKIE['login'], $_COOKIE['hash'])) {
 
+                $this->is_logged = true;
                 return true;
             } else {
 
@@ -61,6 +85,15 @@ class AuthorizationModel extends Model
 
     public function isAdmin() {
 
+        if ($this->isLogged() AND !is_null($this->user) AND $this->user['login'] === 'admin') {
+
+            return true;
+        } else {
+
+            return false;
+        }
+
+        /*
         // TODO : We need refactoring to prevent repeated methods calls
         if ( $this->is_admin === null ) {
 
@@ -91,15 +124,23 @@ class AuthorizationModel extends Model
                 return false;
             }
         }
+        */
     }
 
     private function validateByPassword($login, $password) {
 
         $user = $this->getUserData($login);
+
+        if ($user === false) {
+
+            return false;
+        }
+
         $password_hash = $this->makePasswordHash($password);
 
         if ($user['password'] === $password_hash) {
 
+            $this->user = $user;
             return true;
         } else {
 
@@ -110,10 +151,17 @@ class AuthorizationModel extends Model
     private function validateByHash($login, $hash) {
 
         $user = $this->getUserData($login);
+
+        if ($user === false) {
+
+            return false;
+        }
+
         $calculated_hash = $this->makeCookieHash($user['login'], $user['password']);
 
         if ($calculated_hash === $hash) {
 
+            $this->user = $user;
             return true;
         } else {
 
@@ -151,6 +199,7 @@ class AuthorizationModel extends Model
         return $cookie_hash;
     }
 
+
     /*
     *
     * Some Database manipulation methods
@@ -175,7 +224,7 @@ class AuthorizationModel extends Model
         } else {
 
             return false;
-        } 
+        }
 
     }
 }

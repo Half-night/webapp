@@ -7,17 +7,15 @@ class AdministrationController extends Controller
 
         parent::__construct();
 
-        if ($this->auth->isAdmin() === true) {
+        if ($this->auth->isAdmin() !== true) {
 
-            echo "User is Admin. It's OK!";
-        } else {
-
-            echo "User is NOT Admin. Go away!";
+            throw new Exception("You are NOT Administrator!");
         }
     }
 
     public function indexAction() {
 
-
+        $view = $this->createView(AdministrationView::class);
+        $view->render();
     }
 }

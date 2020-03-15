@@ -11,7 +11,7 @@ class HomepageController extends Controller
         $this->model = new HomepageModel();
         $data = $this->model->get();
 
-        $this->view = new HomepageView($data);
+        $this->view = $this->createView(HomepageView::class, $data);
         $this->view->render();
 
     }

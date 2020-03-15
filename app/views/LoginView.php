@@ -3,9 +3,7 @@
 class LoginView extends View
 {
 
-    public function render() {
-
-        $data = $this->data;
+    public function build($data = array()) {
         
         include APP_DIR . '/templates/common/head.tmpl.php';
         include APP_DIR . '/templates/login.tmpl.php';

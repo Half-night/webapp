@@ -16,7 +16,7 @@ class CustomPageController extends Controller
             return false;
         }
 
-        $view = new CustomPageView($data);
+        $view = $this->createView(CustomPageView::class, $data);
         $view->render();
     }
 }

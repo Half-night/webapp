@@ -26,7 +26,15 @@ class App
 
             $controllerName = $route->controller . 'Controller';
             $methodName = $route->method . 'Action';
-            $this->controller = new $controllerName();
+
+            try {
+
+                $this->controller = new $controllerName();
+            } catch (Exception $e) {
+
+                $methodName = 'notFoundAction';
+                $this->controller = new ErrorController();
+            }
 
             if ( $this->controller->$methodName() === false ) {
 
