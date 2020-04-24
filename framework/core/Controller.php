@@ -6,6 +6,8 @@ abstract class Controller
     protected $auth = null;
     protected $user_logged = false;
     protected $user = null;
+
+    // Some data that should be given to a View
     protected $data = array();
 
     public function __construct() {

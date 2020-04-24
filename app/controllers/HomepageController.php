@@ -3,16 +3,13 @@
 class HomepageController extends Controller
 {
 
-    private $view = null;
-    private $model = null;
-
     public function indexAction() {
 
-        $this->model = new HomepageModel();
-        $data = $this->model->get();
+        $model = new HomepageModel();
+        $data = $model->get();
 
-        $this->view = $this->createView(HomepageView::class, $data);
-        $this->view->render();
+        $view = $this->createView(HomepageView::class, $data);
+        $view->render();
 
     }
 }

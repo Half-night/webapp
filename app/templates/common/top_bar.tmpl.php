@@ -15,7 +15,7 @@
 
 <?php if (@$data['user']): ?>
 <div id="top_bar_user">
-You're logged as <b><?= $data['user']['login']; ?></b>!
+You're logged as <b><?= @$data['user']['login']; ?></b>!
 </div>
 <?php endif; ?>
   

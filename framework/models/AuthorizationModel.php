@@ -61,6 +61,15 @@ class AuthorizationModel extends Model
         }
     }
 
+    public function getData() {
+
+        $data['title'] = 'Log in';
+        $data['description'] = 'Log in form';
+        $data['keywords'] = 'log in';
+
+        return $data;
+    }
+
     public function isLogged() {
 
         if ( !is_null($this->is_logged) AND $this->is_logged === true ) {

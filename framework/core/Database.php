@@ -49,6 +49,7 @@ class Database
                 }
             } else {
 
+                // TODO: Get rid of it
                 die($this->connection->error);
             }
 
