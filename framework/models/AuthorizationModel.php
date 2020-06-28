@@ -37,7 +37,19 @@ class AuthorizationModel extends Model
         return true;
     }
 
-    public function register($login, $password) {
+    public function register($data) {
+
+        $login = addslashes($data['login']);
+        $email = addslashes($data['email']);
+        $password = addslashes($data['password']);
+
+        if ($this->addUser($login, $email, $password)) {
+
+            return true;
+        } else {
+
+            return false;
+        }
 
     }
 
@@ -63,6 +75,7 @@ class AuthorizationModel extends Model
 
     public function getData() {
 
+        // TODO: Get rid of this. Set this data in corresponding View
         $data['title'] = 'Log in';
         $data['description'] = 'Log in form';
         $data['keywords'] = 'log in';
@@ -209,6 +222,45 @@ class AuthorizationModel extends Model
     }
 
 
+    // Check input data
+
+    public function checkRegister($data = array()) {
+
+        //TODO: Come up with the way to transfer error messages to the view
+
+        if (isset($data['login']) 
+            AND isset($data['email'])
+            AND isset($data['password'])
+            AND isset($data['password_2'])) {
+
+            if (!empty($data['login']) AND !empty($data['email']) AND !empty($data['password']) AND !empty($data['password_2'])) {
+
+                if ( $this->getUserData($data['login']) ) {
+
+                    return false;
+                } else {
+
+                    if ($data['password'] === $data['password_2']) {
+
+                        return true;
+                    } else {
+
+                        return false;
+                    }
+                }
+
+            } else {
+
+                return false;
+            }
+
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+
     /*
     *
     * Some Database manipulation methods
@@ -234,6 +286,24 @@ class AuthorizationModel extends Model
 
             return false;
         }
+    }
 
+    private function addUser($login, $email, $password) {
+
+        $password = $this->makePasswordHash($password);
+
+        $query = "INSERT INTO users (`login`, `email`, `password`, `reg_time`) VALUES ('" . $login . "', '" . $email . "', '" . $password . "', NOW())";
+
+        $this->db->connect();
+        $result = $this->db->query($query);
+        $this->db->disconnect();
+
+        if ($result) {
+
+            return true;
+        } else {
+
+            return false;
+        }
     }
 }

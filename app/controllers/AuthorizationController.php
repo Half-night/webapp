@@ -59,6 +59,29 @@ class AuthorizationController extends Controller
 
     public function logoutAction() {
 
-            $this->auth->logout();
+        $this->auth->logout();
+    }
+
+    public function registrationAction() {
+
+        if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
+
+            $view = $this->createView(RegistrationView::class);
+            $view->render();
+
+            return true;
+
+        } elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+
+            if ($this->auth->checkRegister($_POST)) {
+
+                $this->auth->register($_POST);
+                
+            } else {
+
+                $view = $this->createView(RegistrationView::class);
+                $view->render();
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ return array(
     'news' => 'News@index',
     'login' => 'Authorization@login',
     'logout' => 'Authorization@logout',
+    'registration' => 'Authorization@registration',
     'news/p_[0-9]{1,3}' => 'News@pager',
     'install' => 'Installation@index',
 
