@@ -50,6 +50,8 @@ class Database
             } else {
 
                 // TODO: Get rid of it
+
+                //throw new Exception($this->connection->error);
                 die($this->connection->error);
             }
 

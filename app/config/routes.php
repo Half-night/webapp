@@ -9,6 +9,9 @@ return array(
     'news/p_[0-9]{1,3}' => 'News@pager',
     'install' => 'Installation@index',
 
+    // Testing purposes
+    'test' => 'Test@index',
+
     // Administration routes
     'admin' => 'Administration@index',
     'admin/users' => 'Administration@users',
