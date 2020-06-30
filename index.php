@@ -17,6 +17,7 @@ ClassMap::generate(APP_DIR);
 
 Config::load(APP_DIR . '/config/settings.php');
 
+
 $app = new App();
 $app->run();
 
