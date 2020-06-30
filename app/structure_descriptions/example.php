@@ -31,5 +31,4 @@ return array(
         'max_length' => 5000,
         'mysql_description' => 'TEXT NOT NULL',
     ),
-
 );

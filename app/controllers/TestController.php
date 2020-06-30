@@ -9,13 +9,8 @@ class TestController extends Controller
 
     public function indexAction() {
 
-        echo "This is test Controller" . PHP_EOL;
+        $this->model = new TestModel();
 
-        $description_provider = new DataStructureDescriptionProvider(APP_DIR . '/structure_descriptions');
-
-        //d($description_provider->getDescription('example'));
-
-        $example = new DataStructure($description_provider->getDescription('example'));
-        d($example);
+        $this->model->get();
     }
 }

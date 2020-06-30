@@ -1,16 +1,52 @@
 <?php
 
-class DataStructureStorage
+class MysqlDataStructureStorage
 {
 
     private $db = null;
     private $qb = null;
 
-    public function __construct(Mysqli $db) {
-        $this->db = $db;
-        $this->db->query('set names utf8;');
+    private $db_config = array();
+
+    public function __construct($db_host, $db_user, $db_pass, $db_name) {
+
+        $this->db_config['host'] = $db_host;
+        $this->db_config['user'] = $db_user;
+        $this->db_config['pass'] = $db_pass;
+        $this->db_config['name'] = $db_name;
+
+        //$this->db = new Mysqli($db_host, $db_user, $db_pass, $db_name);
+        
 
         $this->qb = new MysqlQueryBuilder();
+    }
+
+    public function connect() {
+
+        if (is_null($this->db)) {
+
+            $this->db = new Mysqli(
+                $this->db_config['host'],
+                $this->db_config['user'],
+                $this->db_config['pass'],
+                $this->db_config['name']
+            );
+
+            $this->db->query('set names utf8;');
+
+            return true;
+        }
+    }
+
+    public function disconnect() {
+
+        if (!is_null($this->db)) {
+
+            $this->db = null;
+
+            return true;
+        }
+
     }
 
     public function insert(DataStructure $structure) {
