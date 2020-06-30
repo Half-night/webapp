@@ -17,10 +17,8 @@ ClassMap::generate(APP_DIR);
 
 Config::load(APP_DIR . '/config/settings.php');
 
-
 $app = new App();
 $app->run();
-
 
 $end_time = microtime(true);
 echo PHP_EOL . ($end_time - $start_time);
