@@ -25,12 +25,7 @@ class MysqlDataStructureStorage
 
         if (is_null($this->db)) {
 
-            $this->db = new Mysqli(
-                $this->db_config['host'],
-                $this->db_config['user'],
-                $this->db_config['pass'],
-                $this->db_config['name']
-            );
+            $this->db = new Mysqli($this->db_config['host'], $this->db_config['user'], $this->db_config['pass'], $this->db_config['name']);
 
             $this->db->query('set names utf8;');
 
@@ -42,6 +37,7 @@ class MysqlDataStructureStorage
 
         if (!is_null($this->db)) {
 
+            $this->db->close();
             $this->db = null;
 
             return true;
@@ -53,8 +49,6 @@ class MysqlDataStructureStorage
 
         $description = $structure->getDescription();
         $structure_name = $description->getName();
-
-        d($this->qb->insert($structure_name)->values($structure->getAll()));
 
         $result = $this->db->query( $this->qb->insert($structure_name)->values($structure->getAll()));
         

@@ -4,11 +4,11 @@ class TestModel extends Model
 {
 
     private $storage = null;
-    private $description_provider = null;
+    private $structure_provider = null;
 
     public function __construct() {
 
-        $this->description_provider = new DataStructureDescriptionProvider(APP_DIR . '/structure_descriptions');
+        $this->structure_provider = new DataStructureProvider(APP_DIR . '/structure_descriptions');
         
         $db_config = Config::get('mysql');
 
@@ -23,18 +23,83 @@ class TestModel extends Model
 
     public function get() {
 
-        $example_description = $this->description_provider->getDescription('example');
-        $example = new DataStructure($example_description);
-        $example->load(array('url' => 'hey_there', 'title' => 'This is my very best page!', 'content' => '<h1>Hellom world!</h1>'));
+        //$example = $this->structure_provider->get('example');
+        //$example->load(array('url' => 'hey_there', 'title' => 'This is my very best page!', 'content' => '<h1>Hellom world!</h1>'));
+
+        //return $example;
 
         //$this->storage->connect();
         //d($this->storage->insert($example));
         //$this->storage->disconnect();
 
+
+        $product = $this->structure_provider->get('test');
+
+        $this->storage->connect();
+        $result = $this->storage->get($product->getDescription());
+        $this->storage->disconnect();
+
+        return $result;
+
     }
 
     public function add() {
 
+        $product = $this->structure_provider->get('test');
+        $product->loadDescribed($_POST);
+
+        $product->validateField('brand');
+        $product->validateField('model');
+        $product->validateField('description');
+        $product->validateField('color');
+        $product->validateField('price');
+
+        if($product->errors) {
+
+            
+            foreach ($product->getAll() as $name => $value) {
+
+                $product_responce[$name]['value'] = $value;
+
+                if (isset($product->errors[$name])) {
+
+                    $product_responce[$name]['errors'] = $product->errors[$name];
+                }
+            }
+
+
+            // Another structure of the array
+
+            /*
+            foreach ($product->getAll() as $name => $value) {
+
+                $product_responce['values'][$name] = $value;
+
+                if (isset($product->errors[$name])) {
+
+                    $product_responce['errors'][$name] = $product->errors[$name];
+                }
+            }
+            */
+
+            //$data['form_data'] = $product->getAll();
+            //$this->errors = $product->errors;
+
+            return $product_responce;
+        } else {
+
+            $this->storage->connect();
+            $result = $this->storage->insert($product);
+            $this->storage->disconnect();
+
+            if ($result === true) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        }
     }
 
     public function update() {

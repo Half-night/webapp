@@ -18,7 +18,7 @@ class DataStructure extends Data
 
     public function validateField($field_name) {
 
-        string_hint($name);
+        string_hint($field_name);
         
         if ( !$field_description = $this->description->get($field_name) ) {
 
@@ -76,7 +76,7 @@ class DataStructure extends Data
 
     public function sanitizeField($field_name) {
 
-        string_hint($name);
+        string_hint($field_name);
 
         if ( !$field_description = $this->description->get($field_name) OR !$field = $this->get($field_name) ) {
 
@@ -115,4 +115,21 @@ class DataStructure extends Data
             }
         }
     }
+
+    // Testing
+
+    public function loadDescribed(array $data) {
+
+        $fields = $this->description->getAll();
+
+        foreach ($fields as $field) {
+
+            if ( isset($data[$field->getName()]) ) {
+
+                $this->set($field->getName(), $data[$field->getName()]);
+            }
+        }
+    }
+
+
 }
