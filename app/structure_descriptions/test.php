@@ -48,7 +48,9 @@ return array(
     array(
         'name' => 'price',
         'type' => 'char',
+        'min_length' => 1,
         'max_length' => 13,
+        'required' => true,
         'pattern' => '#^[0-9]{1,10}\.[0-9]{2}$#',
         'mysql_description' => 'CHAR(20)',
     ),

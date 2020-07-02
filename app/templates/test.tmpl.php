@@ -3,15 +3,21 @@
 function echo_errors($errors) {
 
   if (is_array($errors) AND count($errors) > 0) {
-    ?><ul><?php
+    ?>
+    <ul>
+      <?php
     foreach ($errors as $name => $message) {
-      ?><li><?= $message ?></li><?php
+      ?>  <li><?= $message ?></li>
+      <?php
     }
-    ?></ul><br><?php 
+    ?>
+</ul><br>
+    <?php 
   }
 }
 
 ?>
+
 <form action="/test/" method="post">
   <?php echo_errors(@$form_data['brand']['errors']); ?>
   <input type="text" name="brand" placeholder="Brand" value="<?= @$form_data['brand']['value'] ?>"><br><br>

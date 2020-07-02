@@ -8,7 +8,8 @@ class TestModel extends Model
 
     public function __construct() {
 
-        $this->structure_provider = new DataStructureProvider(APP_DIR . '/structure_descriptions');
+        DataStructureProvider::setDirectory(APP_DIR . '/structure_descriptions');
+        //$this->structure_provider = new DataStructureProvider(APP_DIR . '/structure_descriptions');
         
         $db_config = Config::get('mysql');
 
@@ -33,7 +34,7 @@ class TestModel extends Model
         //$this->storage->disconnect();
 
 
-        $product = $this->structure_provider->get('test');
+        $product = DataStructureProvider::get('test');
 
         $this->storage->connect();
         $result = $this->storage->get($product->getDescription());
@@ -45,7 +46,9 @@ class TestModel extends Model
 
     public function add() {
 
-        $product = $this->structure_provider->get('test');
+        //$product = $this->structure_provider->get('test');
+        $product = DataStructureProvider::get('test');
+
         $product->loadDescribed($_POST);
 
         $product->validateField('brand');

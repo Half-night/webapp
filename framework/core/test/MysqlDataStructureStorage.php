@@ -155,7 +155,8 @@ class MysqlDataStructureStorage
 
                 $structure = new DataStructure($description);
                 $structure->load($row);
-                $collection[] = $structure;
+                // !!!
+                $collection[] = $structure->getAll();
             }
 
             return $collection;

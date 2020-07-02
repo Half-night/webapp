@@ -3,8 +3,10 @@
 class DataStructureDescriptionProvider
 {
 
-    private $directory = '.';
+    private static $directory = '.';
     
+
+    /*
     public function __construct($dir = null) {
         
         if ( !is_null($dir) AND is_dir($dir) ) {
@@ -12,14 +14,23 @@ class DataStructureDescriptionProvider
             $this->directory = $dir;
         }
     }
+    */
 
-    public function getDescription($name) {
+    public static function setDirectory($dir = null) {
+
+        if ( !is_null($dir) AND is_dir($dir) ) {
+
+            self::$directory = $dir;
+        }
+    }
+
+    public static function getDescription($name) {
 
         string_hint($name);
         
-        if (file_exists($this->directory . '/' . $name . '.php')) {
+        if (file_exists(self::$directory . '/' . $name . '.php')) {
 
-            $fields = include $this->directory . '/' . $name . '.php';
+            $fields = include self::$directory . '/' . $name . '.php';
 
             if (is_array($fields) AND count($fields) > 0) {
 
@@ -28,10 +39,10 @@ class DataStructureDescriptionProvider
                     $fields[$key] = new FieldDescription($field);
                 }
 
-                $structure = new DataStructureDescription($name);
-                $structure->loadFields($fields);
+                $structure_decription = new DataStructureDescription($name);
+                $structure_decription->loadFields($fields);
 
-                return $structure;
+                return $structure_decription;
 
             } else {
 

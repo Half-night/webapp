@@ -17,7 +17,7 @@ class TestController extends Controller
 
             if ($result) {
 
-                $data = $result; 
+                $data = $result;
             }
 
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {

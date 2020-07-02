@@ -27,7 +27,7 @@ class DataStructure extends Data
             return false;
         } 
 
-        if ( is_null($field = $this->get($field_name)) ) {
+        if ( is_null($field = $this->get($field_name)) OR empty($field) ) {
 
             $this->errors[$field_name]['not_set'] = 'The "' . $field_name . '" field is not set';
 
@@ -130,6 +130,4 @@ class DataStructure extends Data
             }
         }
     }
-
-
 }
