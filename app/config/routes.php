@@ -11,6 +11,10 @@ return array(
 
     // Testing purposes
     'test' => 'Test@index',
+    'test/add' => 'Test@add',
+    'test/edit/[0-9]{1,10}' => 'Test@edit',
+    'test/delete' => 'Test@delete',
+    'test/[0-9]{1,10}' => 'Test@get',
 
     // Administration routes
     'admin' => 'Administration@index',

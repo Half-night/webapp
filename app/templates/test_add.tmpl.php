@@ -18,7 +18,7 @@ function echo_errors($errors) {
 
 ?>
 
-<form action="/test/" method="post">
+<form action="/test/add" method="post">
   <?php echo_errors(@$form_data['brand']['errors']); ?>
   <input type="text" name="brand" placeholder="Brand" value="<?= @$form_data['brand']['value'] ?>"><br><br>
   <?php echo_errors(@$form_data['model']['errors']); ?>

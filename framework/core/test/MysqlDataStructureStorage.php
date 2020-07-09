@@ -168,8 +168,27 @@ class MysqlDataStructureStorage
 
     }
 
-    public function getById() {
-        
+    public function getById(DataStructureDescription $description, $id) {
+
+        $structure_name = $description->getName();
+
+        $result = $this->db->query( $this->qb->select('*')->from($structure_name)->where('id=' . $id) );
+
+        if ($result->num_rows > 0) {
+
+            $row = $result->fetch_assoc();
+
+            $structure = new DataStructure($description);
+            $structure->load($row);
+                
+            $structure_fields = $structure->getAll();
+
+            return $structure_fields;
+
+        } else {
+
+            return false;
+        }
     }
 
     public function getByUniqueValue() {

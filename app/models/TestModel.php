@@ -9,7 +9,6 @@ class TestModel extends Model
     public function __construct() {
 
         DataStructureProvider::setDirectory(APP_DIR . '/structure_descriptions');
-        //$this->structure_provider = new DataStructureProvider(APP_DIR . '/structure_descriptions');
         
         $db_config = Config::get('mysql');
 
@@ -24,20 +23,22 @@ class TestModel extends Model
 
     public function get() {
 
-        //$example = $this->structure_provider->get('example');
-        //$example->load(array('url' => 'hey_there', 'title' => 'This is my very best page!', 'content' => '<h1>Hellom world!</h1>'));
-
-        //return $example;
-
-        //$this->storage->connect();
-        //d($this->storage->insert($example));
-        //$this->storage->disconnect();
-
-
         $product = DataStructureProvider::get('test');
 
         $this->storage->connect();
         $result = $this->storage->get($product->getDescription());
+        $this->storage->disconnect();
+
+        return $result;
+
+    }
+
+    public function getById($id) {
+
+        $product = DataStructureProvider::get('test');
+
+        $this->storage->connect();
+        $result = $this->storage->getById($product->getDescription(), $id);
         $this->storage->disconnect();
 
         return $result;
@@ -58,8 +59,7 @@ class TestModel extends Model
         $product->validateField('price');
 
         if($product->errors) {
-
-            
+ 
             foreach ($product->getAll() as $name => $value) {
 
                 $product_responce[$name]['value'] = $value;
