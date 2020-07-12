@@ -18,6 +18,7 @@ body {
 
     font-family: Roboto, Arial, Verdana;
     font-size: 16px;
+
 }
 
 #top_bar {
@@ -67,6 +68,7 @@ body {
 #body {
 
     width: 90%;
+    min-height: 100vh;
     margin: 0 auto;
 }
 
@@ -77,12 +79,30 @@ body {
     background-color: #fff;
 }
 
+#middle {
+    background-color: #ccc;
+    min-height: 100vh;
+}
+
 #menu {
+    display: block;
+    float: left;
+
+    width: 20%;
     padding: 10px;
+
+    
 }
 
 #content {
+    display: block;
+    float: left;
+
+    width: 80%;
+    min-height: 100vh;
     padding: 10px;
+
+    background-color: #fff;
 }
 
 #footer {

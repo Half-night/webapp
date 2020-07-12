@@ -15,6 +15,8 @@
 include __DIR__ . '/../common/top_bar.tmpl.php';
 ?>
 
+<div id="body">
+
 <!-- Head -->
 
 <div id="head">
@@ -23,6 +25,9 @@ include __DIR__ . '/../common/top_bar.tmpl.php';
 
 <!-- /Head -->
 
+<!-- Middle -->
+
+<div id="middle">
 
 <!-- Menu -->
 

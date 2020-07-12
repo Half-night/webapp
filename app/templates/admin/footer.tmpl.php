@@ -3,6 +3,11 @@
 
 <!-- /Content -->
 
+<div class="clear_fix"></div>
+
+</div>
+
+<!-- /Middle -->
 
 <!-- Footer -->
 
@@ -11,6 +16,8 @@
 </div>
 
 <!-- /Footer -->
+
+</div>
 
 </body>
 </html>

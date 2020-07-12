@@ -25,8 +25,14 @@
 
 <!-- /Head -->
 
+<!-- Middle -->
+
+<div id="middle">
+
 <?php
 
 include __DIR__ . '/../main_menu.tmpl.php';
 
 ?>
+
+<div id="content">

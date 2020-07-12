@@ -36,6 +36,7 @@ class TestController extends Controller
             if ($respose !== true) {
 
                 $data['form_data'] = $respose;
+                $data['errors'] = $this->model->getErrors();
             }
         }
 
@@ -51,24 +52,33 @@ class TestController extends Controller
         $data = array();
         $this->model = new TestModel();
 
+        $id = (int) explode('/', Config::get('request_path'))[2];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $respose = $this->model->add();
+            $respose = $this->model->update($id);
 
             if ($respose !== true) {
 
+                $data['template'] = 'test_edit';
                 $data['form_data'] = $respose;
+                $data['form_data']['id'] = $id;
+                $data['errors'] = $this->model->getErrors();
+                
+            } else {
+
+                $data['template'] = 'test_saved';
             }
 
-        } else {
+            $view = $this->createView(TestView::class, $data);
 
-            $id = (int) explode('/', Config::get('request_path'))[2];
+        } else {
 
             $result = $this->model->getById($id);
 
             if ($result) {
 
-                $data['template'] = 'test_add';
+                $data['template'] = 'test_edit';
                 $data['form_data'] = $result;
 
                 $view = $this->createView(TestView::class, $data);
@@ -95,6 +105,9 @@ class TestController extends Controller
 
         $this->model = new TestModel();
 
+        $id = (int) explode('/', Config::get('request_path'))[1];
+        $data['test'] = $this->model->getById($id);
+        $data['template'] = 'test_get';
 
         $view = $this->createView(TestView::class, $data);
         $view->render();

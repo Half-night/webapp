@@ -16,20 +16,30 @@ function echo_errors($errors) {
   }
 }
 
+if ($edit === true) {
+
+  $form_action = '/test/edit/' . $form_data['id'];
+  $submit_value = 'Save';
+} else {
+
+  $form_action = '/test/add';
+  $submit_value = 'Add';
+}
+
 ?>
 
-<form action="/test/add" method="post">
-  <?php echo_errors(@$form_data['brand']['errors']); ?>
-  <input type="text" name="brand" placeholder="Brand" value="<?= @$form_data['brand']['value'] ?>"><br><br>
-  <?php echo_errors(@$form_data['model']['errors']); ?>
-  <input type="text" name="model" placeholder="Model" value="<?= @$form_data['model']['value'] ?>"><br><br>
+<form action="<?= @$form_action ?>" method="post">
+  <?php echo_errors(@$errors['brand']); ?>
+  <input type="text" name="brand" placeholder="Brand" value="<?= @$form_data['brand'] ?>"><br><br>
+  <?php echo_errors(@$errors['model']); ?>
+  <input type="text" name="model" placeholder="Model" value="<?= @$form_data['model'] ?>"><br><br>
   Description:<br>
-  <?php echo_errors(@$form_data['description']['errors']); ?>
-  <textarea name="description" id="" cols="30" rows="10"><?= @$form_data['description']['value'] ?></textarea><br><br>
-  <?php echo_errors(@$form_data['color']['errors']); ?>
-  <input type="text" name="color" placeholder="Color" value="<?= @$form_data['color']['value'] ?>"><br><br>
-  <?php echo_errors(@$form_data['price']['errors']); ?>
-  <input type="text" name="price" placeholder="Price" value="<?= @$form_data['price']['value'] ?>"><br><br>
-  <input type="submit" name="submit" value="Add"><br><br>
+  <?php echo_errors(@$errors['description']); ?>
+  <textarea name="description" id="" cols="30" rows="10"><?= @$form_data['description'] ?></textarea><br><br>
+  <?php echo_errors(@$errors['color']); ?>
+  <input type="text" name="color" placeholder="Color" value="<?= @$form_data['color'] ?>"><br><br>
+  <?php echo_errors(@$errors['price']); ?>
+  <input type="text" name="price" placeholder="Price" value="<?= @$form_data['price'] ?>"><br><br>
+  <input type="submit" name="submit" value="<?= @$submit_value ?>"><br><br>
 </form>
 

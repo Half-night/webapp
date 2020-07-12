@@ -94,7 +94,8 @@ class MysqlDataStructureStorage
         $id = $data['id'];
         unset($data['id']);
 
-        echo $this->qb->update($structure_name)->set($data)->where('id=' . $id);
+        // Debugging
+        //echo $this->qb->update($structure_name)->set($data)->where('id=' . $id);
 
         if ( $this->db->query($this->qb->update($structure_name)->set($data)->where('id=' . $id)) ) {
 
@@ -122,7 +123,8 @@ class MysqlDataStructureStorage
         $id = $data['id'];
         unset($data['id']);
 
-        echo $this->qb->delete($structure_name)->where('id=' . $id);
+        // Debugging
+        //echo $this->qb->delete($structure_name)->where('id=' . $id);
 
         if ( $this->db->query($this->qb->delete($structure_name)->where('id=' . $id)) ) {
 
@@ -165,7 +167,6 @@ class MysqlDataStructureStorage
 
             return false;
         }
-
     }
 
     public function getById(DataStructureDescription $description, $id) {

@@ -4,7 +4,7 @@ class TestModel extends Model
 {
 
     private $storage = null;
-    private $structure_provider = null;
+    //private $structure_provider = null;
 
     public function __construct() {
 
@@ -47,7 +47,6 @@ class TestModel extends Model
 
     public function add() {
 
-        //$product = $this->structure_provider->get('test');
         $product = DataStructureProvider::get('test');
 
         $product->loadDescribed($_POST);
@@ -60,35 +59,10 @@ class TestModel extends Model
 
         if($product->errors) {
  
-            foreach ($product->getAll() as $name => $value) {
+            $this->errors['validation_errors'] = $product->errors;
 
-                $product_responce[$name]['value'] = $value;
+            return $product->getAll();
 
-                if (isset($product->errors[$name])) {
-
-                    $product_responce[$name]['errors'] = $product->errors[$name];
-                }
-            }
-
-
-            // Another structure of the array
-
-            /*
-            foreach ($product->getAll() as $name => $value) {
-
-                $product_responce['values'][$name] = $value;
-
-                if (isset($product->errors[$name])) {
-
-                    $product_responce['errors'][$name] = $product->errors[$name];
-                }
-            }
-            */
-
-            //$data['form_data'] = $product->getAll();
-            //$this->errors = $product->errors;
-
-            return $product_responce;
         } else {
 
             $this->storage->connect();
@@ -105,7 +79,39 @@ class TestModel extends Model
         }
     }
 
-    public function update() {
+    public function update($id) {
+
+        $product = DataStructureProvider::get('test');
+        
+        $product->load(array('id' => $id));
+        $product->loadDescribed($_POST);
+
+        $product->validateField('brand');
+        $product->validateField('model');
+        $product->validateField('description');
+        $product->validateField('color');
+        $product->validateField('price');
+
+        if($product->errors) {
+ 
+            $this->errors['validation_errors'] = $product->errors;
+
+            return $product->getAll();
+
+        } else {
+
+            $this->storage->connect();
+            $result = $this->storage->update($product);
+            $this->storage->disconnect();
+
+            if ($result === true) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        }
 
     }
 

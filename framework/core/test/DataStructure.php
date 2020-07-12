@@ -6,6 +6,10 @@ class DataStructure extends Data
     public $errors = null;
     private $description = null;
 
+    // Testing
+    private $valid = false;
+    private $sanitized = false;
+
     public function __construct(DataStructureDescription $description) {
 
         $this->description = $description;
@@ -25,11 +29,11 @@ class DataStructure extends Data
             $this->errors[$field_name]['unacceptable'] = 'The "' . $field_name . '" field is not described in the structure "'
             . $this->description->getName() . '"';
             return false;
-        } 
+        }
 
         if ( is_null($field = $this->get($field_name)) OR empty($field) ) {
 
-            $this->errors[$field_name]['not_set'] = 'The "' . $field_name . '" field is not set';
+            //$this->errors[$field_name]['not_set'] = 'The "' . $field_name . '" field is not set';
 
             if ( $field_description->getRequired() ) {
 
@@ -129,5 +133,23 @@ class DataStructure extends Data
                 $this->set($field->getName(), $data[$field->getName()]);
             }
         }
+    }
+
+    public function isValid() {
+
+        return $this->valid;
+    }
+
+    public function isSanitized() {
+
+        return $this->sanitized;
+    }
+
+    public function sanitize() {
+
+    }
+
+    public function validate() {
+        
     }
 }
